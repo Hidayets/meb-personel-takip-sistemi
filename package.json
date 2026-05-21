@@ -1,0 +1,96 @@
+{
+  "name": "meb-personel-takip",
+  "version": "1.0.5",
+  "description": "MEB Personel Takip ve Yönetim Sistemi - Okul personeli için kapsamlı takip uygulaması",
+  "author": {
+    "name": "Hidayet SEVDİ"
+  },
+  "type": "module",
+  "main": "dist-electron/main.js",
+  "scripts": {
+    "dev": "vite",
+    "lint": "tsc --noEmit",
+    "build": "tsc && vite build && electron-builder",
+    "build:win": "npm run build",
+    "preview": "vite preview"
+  },
+  "build": {
+    "appId": "com.okul.takipsistemi",
+    "productName": "Okul Takip Sistemi",
+    "copyright": "Copyright © 2026 MEB",
+    "icon": "build/icon.ico",
+    "asar": true,
+    "publish": {
+      "provider": "github",
+      "owner": "Hidayets",
+      "repo": "meb-personel-takip-sistemi",
+      "releaseType": "release"
+    },
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*",
+      "build/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "public",
+        "to": "public",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "Okul-Takip-Sistemi-${version}-Setup.${ext}",
+      "requestedExecutionLevel": "asInvoker"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Okul Takip Sistemi",
+      "deleteAppDataOnUninstall": false,
+      "perMachine": false,
+      "language": "1055"
+    }
+  },
+  "dependencies": {
+    "@google/genai": "*",
+    "@tailwindcss/vite": "^4.2.1",
+    "electron-updater": "^6.8.3",
+    "html2pdf.js": "^0.14.0",
+    "lucide-react": "^0.576.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "recharts": "^3.7.0",
+    "tailwindcss": "^4.2.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "electron": "^28.2.0",
+    "electron-builder": "^24.9.1",
+    "png-to-ico": "^3.0.1",
+    "sharp": "^0.34.5",
+    "svg-to-ico": "^1.1.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.4.0",
+    "vite-plugin-electron": "^0.28.2",
+    "vite-plugin-electron-renderer": "^0.14.5"
+  }
+}

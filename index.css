@@ -1,0 +1,350 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+/* Input ve form elementlerinin üstte olmasını sağla */
+input, button, select, textarea {
+  position: relative;
+  z-index: auto;
+}
+
+form {
+  position: relative;
+  z-index: auto;
+}
+
+/* Tüm container'ları responsive yap */
+.max-w-7xl,
+.max-w-6xl,
+.max-w-5xl,
+.max-w-4xl,
+.max-w-3xl,
+.max-w-2xl,
+.max-w-xl {
+  max-width: 100% !important;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Tabloları responsive yap */
+table {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  display: block;
+}
+
+@media (min-width: 640px) {
+  table {
+    display: table;
+  }
+}
+
+/* Tablolar için scroll container */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Resmi çizelge formları için özel ayarlar */
+.border-2.border-black {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* Büyük tablolar için küçük ekranlarda scroll */
+@media (max-width: 1200px) {
+  .border-2.border-black {
+    font-size: 0.85em;
+  }
+}
+
+@media (max-width: 992px) {
+  .border-2.border-black {
+    font-size: 0.75em;
+  }
+}
+
+@media (max-width: 768px) {
+  .border-2.border-black {
+    font-size: 0.65em;
+  }
+}
+
+/* Modal'ları responsive yap */
+.fixed.inset-0 > div {
+  max-width: 95vw !important;
+  max-height: 95vh !important;
+}
+
+/* Overflow kontrolü */
+* {
+  max-width: 100%;
+}
+
+/* Recharts için özel kurallar - boyut hesaplamasını engelleme */
+.recharts-wrapper,
+.recharts-surface,
+.recharts-layer {
+  max-width: none !important;
+}
+
+.recharts-surface {
+  overflow: visible !important;
+}
+
+@media print {
+  /* Tüm gereksiz elementleri gizle */
+  .no-print,
+  nav,
+  header,
+  footer,
+  aside,
+  .sidebar,
+  button:not(.print-keep),
+  input[type="button"],
+  input[type="submit"] {
+    display: none !important;
+  }
+  
+  /* Sayfa ayarları */
+  @page {
+    margin: 0;
+    size: A4;
+  }
+  
+  /* Maaş Değişikliği Formu için Dikey */
+  @page portrait-page {
+    size: A4 portrait;
+    margin: 8mm;
+  }
+  
+  /* Kademe Terfi Formu için Yatay */
+  @page landscape-page {
+    size: A4 landscape;
+    margin: 5mm;
+  }
+  
+  .print-portrait {
+    page: portrait-page;
+  }
+  
+  .print-landscape {
+    page: landscape-page;
+  }
+  
+  body {
+    background-color: white !important;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  /* Yazdırma sırasında sadece formu göster */
+  body.printing > *:not(#root) {
+    display: none !important;
+  }
+
+  /* Modal/Overlay yazdırma düzeltmeleri:
+     PDF/Yazdır butonlarına Önizleme modal'ı açıkken basıldığında
+     modal arka planı (koyu yarı şeffaf), modal kabuğu (gölge, yuvarlak köşe)
+     ve scroll sınırları yazdırma çıktısına yansımasın. */
+  .fixed.inset-0 {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    position: static !important;
+    padding: 0 !important;
+    z-index: auto !important;
+  }
+  .fixed.inset-0 > div {
+    box-shadow: none !important;
+    background: white !important;
+    max-width: 100% !important;
+    max-height: none !important;
+    overflow: visible !important;
+    border-radius: 0 !important;
+    border: none !important;
+    width: 100% !important;
+  }
+  
+  /* Yazdırma konteyneri */
+  .print-container {
+    width: 100%;
+    height: auto;
+    margin: 0 !important;
+    padding: 0 !important;
+    page-break-after: always;
+  }
+  
+  /* Formları tam sayfa yap. Tailwind'in min-w-[800px] ve max-w-[1050px]
+     kuralları print sırasında kaldırılmalı, aksi halde form A4'e sığmaz. */
+  .border-2.border-black {
+    margin: 0 auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    overflow: visible !important;
+    box-sizing: border-box !important;
+    page-break-inside: auto;
+  }
+  
+  /* Maaş Değişikliği Formu - Dikey */
+  .print-portrait {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    min-height: auto !important;
+    padding: 3mm !important;
+    box-sizing: border-box;
+  }
+  
+  /* Kademe Terfi Formu - Yatay */
+  .print-landscape {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    min-height: auto !important;
+    padding: 3mm !important;
+    box-sizing: border-box;
+  }
+  
+  /* Tabloları optimize et: table-layout: fixed sayesinde sütunlar
+     kapsayıcının dışına taşmaz, kelimeler hücreye sığacak şekilde kırılır */
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    table-layout: fixed !important;
+    page-break-inside: auto;
+  }
+  
+  table th,
+  table td {
+    padding: 1mm 1.5mm !important;
+    line-height: 1.25 !important;
+    word-wrap: break-word !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+  }
+  
+  /* Font boyutlarını koru */
+  .text-\[11px\] {
+    font-size: 11px !important;
+  }
+  
+  .text-\[10px\] {
+    font-size: 10px !important;
+  }
+  
+  .text-\[9px\] {
+    font-size: 9px !important;
+  }
+  
+  .text-\[8px\] {
+    font-size: 8px !important;
+  }
+  
+  .text-\[7px\] {
+    font-size: 7px !important;
+  }
+  
+  /* Padding ve margin'leri optimize et */
+  .p-8 {
+    padding: 8mm !important;
+  }
+  
+  .p-6 {
+    padding: 6mm !important;
+  }
+  
+  .p-4 {
+    padding: 4mm !important;
+  }
+  
+  .mb-3, .mt-3 {
+    margin-bottom: 2mm !important;
+    margin-top: 2mm !important;
+  }
+  
+  .mb-2, .mt-2 {
+    margin-bottom: 1.5mm !important;
+    margin-top: 1.5mm !important;
+  }
+  
+  /* Sayfa sonlarını kontrol et */
+  .bg-yellow-300 {
+    page-break-after: avoid;
+    page-break-inside: avoid;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  
+  /* İmza bölümü - A4'e sığması için ekrandaki dev boşlukları sıkıştır */
+  .mt-6 {
+    margin-top: 3mm !important;
+  }
+  
+  .mt-8 {
+    margin-top: 4mm !important;
+  }
+  
+  .mt-12 {
+    margin-top: 5mm !important;
+  }
+  
+  .mb-8 {
+    margin-bottom: 4mm !important;
+  }
+  
+  .mb-12 {
+    margin-bottom: 5mm !important;
+  }
+  
+  /* Orphan ve widow kontrolü */
+  * {
+    orphans: 3;
+    widows: 3;
+  }
+  
+  /* Kenar çizgilerini koru */
+  .border-2 {
+    border-width: 2px !important;
+  }
+  
+  .border {
+    border-width: 1px !important;
+  }
+  
+  .border-black {
+    border-color: #000 !important;
+  }
+}
